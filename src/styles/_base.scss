@@ -1,0 +1,167 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ===========================================
+// BASE STYLES - Mood Tracker
+// ===========================================
+
+// -----------------------------
+// Font Face
+// -----------------------------
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('../assets/fonts/Reddit_Sans/RedditSans-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('../assets/fonts/Reddit_Sans/RedditSans-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// -----------------------------
+// CSS Reset
+// -----------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-base;
+  color: $color-white;
+  background: $color-bg-primary;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+// -----------------------------
+// Typography
+// -----------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-white;
+}
+
+h1 {
+  font-size: $font-size-4xl;
+}
+
+h2 {
+  font-size: $font-size-3xl;
+}
+
+h3 {
+  font-size: $font-size-2xl;
+}
+
+h4 {
+  font-size: $font-size-xl;
+}
+
+p {
+  color: $color-gray-300;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color $transition-fast;
+  
+  &:hover {
+    color: $color-primary-hover;
+  }
+}
+
+// -----------------------------
+// Form Elements
+// -----------------------------
+button {
+  font-family: $font-family-base;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: $font-family-base;
+}
+
+// -----------------------------
+// Lists
+// -----------------------------
+ul, ol {
+  list-style: none;
+}
+
+// -----------------------------
+// Images
+// -----------------------------
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// -----------------------------
+// Selection
+// -----------------------------
+::selection {
+  background: $color-primary;
+  color: $color-white;
+}
+
+// -----------------------------
+// Focus States
+// -----------------------------
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}
+
+// -----------------------------
+// Scrollbar
+// -----------------------------
+body {
+  @include custom-scrollbar;
+}
+
+// -----------------------------
+// Utility Classes
+// -----------------------------
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

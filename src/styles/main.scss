@@ -1,0 +1,9 @@
+// ===========================================
+// MAIN SCSS ENTRY - Mood Tracker
+// ===========================================
+
+// Import all partials
+@use 'variables';
+@use 'mixins';
+@use 'base';
+@use 'animations';
