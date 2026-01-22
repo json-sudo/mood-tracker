@@ -1,0 +1,88 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ===========================================
+// AUTH FORM STYLES
+// ===========================================
+
+.form {
+  @include flex-column;
+  gap: $spacing-5;
+}
+
+.field {
+  @include flex-column;
+  gap: $spacing-2;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-gray-300;
+}
+
+.input {
+  @include input-base;
+  
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px $color-primary-light;
+  }
+}
+
+.error {
+  padding: $spacing-3 $spacing-4;
+  background: rgba($color-error, 0.1);
+  border: 1px solid rgba($color-error, 0.3);
+  border-radius: $radius-lg;
+  color: $color-error;
+  font-size: $font-size-sm;
+  text-align: center;
+}
+
+.submitButton {
+  @include button-primary;
+  width: 100%;
+  padding: $spacing-4;
+  margin-top: $spacing-2;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba($color-white, 0.3);
+  border-top-color: $color-white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.switchText {
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  margin-top: $spacing-2;
+}
+
+.link {
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+  transition: color $transition-fast;
+  
+  &:hover {
+    color: $color-primary-hover;
+  }
+}

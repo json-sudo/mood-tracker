@@ -1,0 +1,60 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ===========================================
+// DASHBOARD PAGE STYLES (Placeholder)
+// ===========================================
+
+.container {
+  min-height: 100vh;
+  background: $color-bg-primary;
+}
+
+.header {
+  @include flex-between;
+  padding: $spacing-4 $spacing-6;
+  background: $color-bg-secondary;
+  border-bottom: 1px solid rgba($color-gray-700, 0.5);
+  
+  h1 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.userInfo {
+  @include flex-center;
+  gap: $spacing-4;
+  
+  span {
+    color: $color-gray-300;
+    font-size: $font-size-sm;
+  }
+}
+
+.logoutButton {
+  @include button-secondary;
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-size-sm;
+}
+
+.main {
+  padding: $spacing-8;
+}
+
+.placeholder {
+  @include flex-column;
+  @include flex-center;
+  gap: $spacing-4;
+  padding: $spacing-16;
+  text-align: center;
+  
+  h2 {
+    font-size: $font-size-2xl;
+    color: $color-gray-300;
+  }
+  
+  p {
+    color: $color-gray-500;
+  }
+}

@@ -1,0 +1,66 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ===========================================
+// AUTH LAYOUT STYLES
+// ===========================================
+
+.container {
+  @include flex-center;
+  min-height: 100vh;
+  padding: $spacing-4;
+  background: $color-bg-primary;
+  
+  // Subtle gradient background
+  background: 
+    radial-gradient(ellipse at top, rgba($color-primary, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom, rgba($color-secondary, 0.05) 0%, transparent 50%),
+    $color-bg-primary;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: $color-bg-card;
+  border-radius: $radius-2xl;
+  padding: $spacing-8;
+  border: 1px solid rgba($color-gray-700, 0.5);
+  box-shadow: $shadow-xl;
+  
+  animation: fadeInUp 0.5s ease;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-8;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto $spacing-4;
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  margin-bottom: $spacing-2;
+}
+
+.subtitle {
+  font-size: $font-size-base;
+  color: $color-gray-400;
+}
+
+// Animation
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
