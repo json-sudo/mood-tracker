@@ -23,11 +23,11 @@ $mood-colors: (
 // -----------------------------
 // Colors - Brand & UI
 // -----------------------------
-$color-primary: #6366F1;
-$color-primary-hover: #4F46E5;
+$color-primary: #4865DB;
+$color-primary-hover: #2A4CD5;
 $color-primary-light: rgba(99, 102, 241, 0.1);
 
-$color-secondary: #8B5CF6;
+$color-secondary: #2A4CD5;
 $color-accent: #F59E0B;
 
 // -----------------------------
@@ -37,13 +37,13 @@ $color-white: #FFFFFF;
 $color-gray-50: #F9FAFB;
 $color-gray-100: #F3F4F6;
 $color-gray-200: #E5E7EB;
-$color-gray-300: #D1D5DB;
-$color-gray-400: #9CA3AF;
+$color-gray-300: #9393B7;
+$color-gray-400: #57577B;
 $color-gray-500: #6B7280;
 $color-gray-600: #4B5563;
 $color-gray-700: #374151;
 $color-gray-800: #1F2937;
-$color-gray-900: #111827;
+$color-gray-900: #21214D;
 
 // -----------------------------
 // Colors - Semantic
@@ -58,8 +58,9 @@ $color-info: #3B82F6;
 // -----------------------------
 $color-bg-primary: #0F0F23;
 $color-bg-secondary: #1A1A2E;
-$color-bg-card: #16213E;
-$color-bg-input: #1F2937;
+$color-bg-card: #FFF;
+$color-bg-input: #FFF;
+$color-bg-gradient: linear-gradient(180deg, #F5F5FF 72.99%, #E0E0FF 100%);
 
 // -----------------------------
 // Typography
@@ -120,10 +121,10 @@ $shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
 // -----------------------------
 // Breakpoints
 // -----------------------------
-$breakpoint-sm: 640px;
+$breakpoint-sm: 375px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
-$breakpoint-xl: 1280px;
+$breakpoint-xl: 1440px;
 
 // -----------------------------
 // Transitions

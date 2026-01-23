@@ -17,8 +17,8 @@ export function LoginPage() {
 
   return (
     <AuthLayout
-      title="Welcome back"
-      subtitle="Sign in to track your mood journey"
+      title="Welcome back!"
+      subtitle="Log in to continue tracking your mood and sleep"
     >
       <LoginForm />
     </AuthLayout>

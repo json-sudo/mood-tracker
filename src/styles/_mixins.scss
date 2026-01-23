@@ -134,20 +134,28 @@
   padding: $spacing-3 $spacing-4;
   font-family: $font-family-base;
   font-size: $font-size-base;
-  color: $color-white;
+  color: $color-gray-900;
   background: $color-bg-input;
-  border: 1px solid $color-gray-700;
+  border: 1px solid $color-gray-300;
   border-radius: $radius-lg;
   transition: border-color $transition-fast, box-shadow $transition-fast;
   
   &::placeholder {
-    color: $color-gray-500;
+    color: $color-gray-400;
+  }
+
+  &:hover {
+    border-color: $color-gray-400;
+  }
+
+  &:active {
+    border-color: $color-gray-400;
   }
   
   &:focus {
     outline: none;
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px $color-primary-light;
+    border-color: $color-gray-400;
+    box-shadow: 0 0 0 2px #FFF, 0 0 0 4px $color-secondary;
   }
   
   &:disabled {

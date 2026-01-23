@@ -6,28 +6,25 @@
 // ===========================================
 
 .container {
-  @include flex-center;
+  @include flex-column;
+  align-items: center;
   min-height: 100vh;
   padding: $spacing-4;
-  background: $color-bg-primary;
-  
-  // Subtle gradient background
-  background: 
-    radial-gradient(ellipse at top, rgba($color-primary, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom, rgba($color-secondary, 0.05) 0%, transparent 50%),
-    $color-bg-primary;
 }
 
 .card {
   width: 100%;
-  max-width: 420px;
+  max-width: 530px;
   background: $color-bg-card;
-  border-radius: $radius-2xl;
-  padding: $spacing-8;
-  border: 1px solid rgba($color-gray-700, 0.5);
+  border-radius: $radius-xl;
+  padding: $spacing-10 $spacing-4;
   box-shadow: $shadow-xl;
   
   animation: fadeInUp 0.5s ease;
+
+  @media (min-width: ($breakpoint-sm + 1px)) {
+    padding: $spacing-10 $spacing-8;
+  }
 }
 
 .header {
@@ -36,21 +33,23 @@
 }
 
 .logo {
-  width: 48px;
+  width: 177px;
   height: 48px;
-  margin: 0 auto $spacing-4;
+  margin: 80px auto $spacing-8;
 }
 
 .title {
-  font-size: $font-size-2xl;
+  font-size: $font-size-3xl;
   font-weight: $font-weight-bold;
-  color: $color-white;
+  color: $color-gray-900;
   margin-bottom: $spacing-2;
+  text-align: left;
 }
 
 .subtitle {
-  font-size: $font-size-base;
+  font-size: $font-size-lg;
   color: $color-gray-400;
+  text-align: left;
 }
 
 // Animation

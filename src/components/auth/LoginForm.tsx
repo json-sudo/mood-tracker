@@ -45,7 +45,7 @@ export function LoginForm() {
 
       <div className={styles.field}>
         <label htmlFor="email" className={styles.label}>
-          Email
+          Email address
         </label>
         <input
           id="email"
@@ -89,9 +89,9 @@ export function LoginForm() {
       </button>
 
       <p className={styles.switchText}>
-        Don't have an account?{' '}
+        Don't got an account?{' '}
         <Link to="/register" className={styles.link}>
-          Create one
+          Sign up
         </Link>
       </p>
     </form>

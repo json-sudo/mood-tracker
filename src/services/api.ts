@@ -1,4 +1,4 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, type AxiosRequestConfig } from 'axios';
 import type {
   AuthTokens,
   User,
@@ -45,7 +45,7 @@ export const clearStoredTokens = (): void => {
 // Request Interceptor
 // -----------------------------
 api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  (config) => {
     const tokens = getStoredTokens();
     if (tokens?.access_token) {
       config.headers.Authorization = `Bearer ${tokens.access_token}`;
@@ -73,7 +73,7 @@ const onTokenRefreshed = (token: string) => {
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError<ApiError>) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
     // If 401 and not already retrying
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -90,7 +90,9 @@ api.interceptors.response.use(
         // Wait for token refresh
         return new Promise((resolve) => {
           subscribeTokenRefresh((token: string) => {
-            originalRequest.headers.Authorization = `Bearer ${token}`;
+            if (originalRequest.headers) {
+              originalRequest.headers.Authorization = `Bearer ${token}`;
+            }
             resolve(api(originalRequest));
           });
         });
@@ -109,7 +111,9 @@ api.interceptors.response.use(
         setStoredTokens(newTokens);
         onTokenRefreshed(newTokens.access_token);
 
-        originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
+        if (originalRequest.headers) {
+          originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
+        }
         return api(originalRequest);
       } catch (refreshError) {
         clearStoredTokens();

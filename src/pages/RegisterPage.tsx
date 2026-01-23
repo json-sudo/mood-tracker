@@ -17,8 +17,8 @@ export function RegisterPage() {
 
   return (
     <AuthLayout
-      title="Create account"
-      subtitle="Start your mood tracking journey today"
+      title="Create an account"
+      subtitle="Join to track your daily mood and sleep with ease"
     >
       <RegisterForm />
     </AuthLayout>

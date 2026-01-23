@@ -141,9 +141,9 @@ export function RegisterForm() {
       </button>
 
       <p className={styles.switchText}>
-        Already have an account?{' '}
+        Already got an account?{' '}
         <Link to="/login" className={styles.link}>
-          Sign in
+          Log in
         </Link>
       </p>
     </form>

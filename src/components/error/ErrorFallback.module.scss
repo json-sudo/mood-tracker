@@ -1,0 +1,131 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ===========================================
+// ERROR FALLBACK STYLES
+// ===========================================
+
+.container {
+  @include flex-center;
+  background: $color-bg-primary;
+  
+  &.page {
+    min-height: 100vh;
+    padding: $spacing-4;
+  }
+  
+  &.section {
+    padding: $spacing-8;
+    border-radius: $radius-xl;
+    background: $color-bg-card;
+    border: 1px solid rgba($color-gray-700, 0.5);
+  }
+}
+
+.content {
+  @include flex-column;
+  align-items: center;
+  text-align: center;
+  max-width: 480px;
+  
+  animation: fadeIn 0.3s ease;
+}
+
+.iconWrapper {
+  @include flex-center;
+  width: 80px;
+  height: 80px;
+  border-radius: $radius-full;
+  background: rgba($color-error, 0.1);
+  margin-bottom: $spacing-6;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  color: $color-error;
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  margin-bottom: $spacing-3;
+  
+  .section & {
+    font-size: $font-size-lg;
+  }
+}
+
+.message {
+  font-size: $font-size-base;
+  color: $color-gray-400;
+  line-height: $line-height-relaxed;
+  margin-bottom: $spacing-6;
+  
+  .section & {
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.details {
+  width: 100%;
+  margin-bottom: $spacing-6;
+  text-align: left;
+  
+  summary {
+    cursor: pointer;
+    color: $color-gray-500;
+    font-size: $font-size-sm;
+    padding: $spacing-2;
+    
+    &:hover {
+      color: $color-gray-400;
+    }
+  }
+}
+
+.errorText {
+  margin-top: $spacing-3;
+  padding: $spacing-4;
+  background: $color-bg-secondary;
+  border-radius: $radius-lg;
+  font-family: monospace;
+  font-size: $font-size-xs;
+  color: $color-error;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+  
+  @include custom-scrollbar;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-3;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.primaryButton {
+  @include button-primary;
+}
+
+.secondaryButton {
+  @include button-secondary;
+}
+
+// Animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
