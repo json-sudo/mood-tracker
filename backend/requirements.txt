@@ -3,8 +3,8 @@ fastapi==0.115.0
 uvicorn[standard]==0.30.6
 
 # Database
-motor==3.5.1
-pymongo==4.8.0
+motor==3.6.0
+pymongo==4.9
 
 # Authentication
 python-jose[cryptography]==3.3.0

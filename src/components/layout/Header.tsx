@@ -1,0 +1,85 @@
+import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import styles from './Header.module.scss';
+import logo from '../../assets/images/logo.svg';
+import avatarPlaceholder from '../../assets/images/avatar-placeholder.svg';
+import iconSettings from '../../assets/images/icon-settings.svg';
+import iconLogout from '../../assets/images/icon-logout.svg';
+import iconDropdownArrow from '../../assets/images/icon-dropdown-arrow.svg';
+
+export function Header() {
+  const { user, logout } = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  return (
+    <header className={styles.header}>
+      <Link to="/" className={styles.logoLink}>
+        <img src={logo} alt="Mood Tracker" className={styles.logoIcon} />
+      </Link>
+
+      <div className={styles.userMenu} ref={dropdownRef}>
+        <button
+          className={styles.avatarButton}
+          onClick={toggleDropdown}
+          aria-expanded={isDropdownOpen}
+          aria-haspopup="true"
+        >
+          <img
+            src={user?.avatar_url || avatarPlaceholder}
+            alt={user?.name || 'User'}
+            className={styles.avatar}
+          />
+          <img
+            src={iconDropdownArrow}
+            alt=""
+            className={`${styles.dropdownArrow} ${isDropdownOpen ? styles.open : ''}`}
+          />
+        </button>
+
+        {isDropdownOpen && (
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownHeader}>
+              <img
+                src={user?.avatar_url || avatarPlaceholder}
+                alt=""
+                className={styles.dropdownAvatar}
+              />
+              <div className={styles.dropdownUserInfo}>
+                <span className={styles.dropdownName}>{user?.name}</span>
+                <span className={styles.dropdownEmail}>{user?.email}</span>
+              </div>
+            </div>
+
+            <div className={styles.dropdownDivider} />
+
+            <Link to="/settings" className={styles.dropdownItem} onClick={() => setIsDropdownOpen(false)}>
+              <img src={iconSettings} alt="" className={styles.dropdownItemIcon} />
+              <span>Settings</span>
+            </Link>
+
+            <button className={styles.dropdownItem} onClick={logout}>
+              <img src={iconLogout} alt="" className={styles.dropdownItemIcon} />
+              <span>Log out</span>
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}

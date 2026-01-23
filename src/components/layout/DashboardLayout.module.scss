@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.layout {
+  min-height: 100vh;
+  background: $color-bg-gradient;
+}
+
+.main {
+  padding: $spacing-4 $spacing-6 $spacing-8;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}

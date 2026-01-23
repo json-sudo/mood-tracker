@@ -1,0 +1,143 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  @include flex-between;
+  padding: $spacing-8 $spacing-4;
+  background: transparent;
+
+  @media (min-width: ($breakpoint-sm + 1px)) {
+    padding: $spacing-10 $spacing-8;
+  }
+
+  @media (min-width: ($breakpoint-md + 1px)) {
+    padding: $spacing-10 $spacing-16;
+  }
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 177px;
+  height: 40px;
+}
+
+.logoText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.userMenu {
+  position: relative;
+}
+
+.avatarButton {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-1;
+  border-radius: $radius-full;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.dropdownArrow {
+  width: 16px;
+  height: 16px;
+  transition: transform $transition-fast;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + $spacing-2);
+  right: 0;
+  min-width: 240px;
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+  padding: $spacing-2;
+  z-index: $z-dropdown;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3;
+}
+
+.dropdownAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.dropdownUserInfo {
+  @include flex-column;
+  gap: $spacing-1;
+}
+
+.dropdownName {
+  font-weight: $font-weight-medium;
+  color: $color-gray-900;
+}
+
+.dropdownEmail {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: $color-gray-200;
+  margin: $spacing-2 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3;
+  background: none;
+  border: none;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  text-decoration: none;
+  color: $color-gray-900;
+  font-size: $font-size-base;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-gray-100;
+  }
+}
+
+.dropdownItemIcon {
+  width: 20px;
+  height: 20px;
+}
