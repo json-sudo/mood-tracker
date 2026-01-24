@@ -1,0 +1,83 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-sm;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-4;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-size-xs;
+  color: $color-gray-500;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
+}
+
+// Empty state
+.emptyState {
+  @include flex-center;
+  min-height: 280px;
+  text-align: center;
+}
+
+.emptyText {
+  font-size: $font-size-base;
+  color: $color-gray-400;
+  max-width: 300px;
+}
+
+// Chart
+.chartContainer {
+  position: relative;
+}
+
+.bar {
+  transition: opacity $transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.barIcon {
+  pointer-events: none;
+}
+
+// Responsive
+@include md {
+  .header {
+    flex-wrap: nowrap;
+  }
+}

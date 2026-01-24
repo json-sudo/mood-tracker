@@ -1,0 +1,124 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: $z-dropdown - 1;
+}
+
+.popover {
+  position: absolute;
+  z-index: $z-dropdown;
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $spacing-4;
+  box-shadow: $shadow-xl;
+  min-width: 200px;
+  max-width: 260px;
+  transform: translateX(-50%) translateY(-100%);
+  margin-top: -$spacing-4;
+  animation: popoverIn 0.15s ease-out;
+
+  // Arrow pointing down
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: $color-white;
+    border-bottom: 0;
+  }
+}
+
+@keyframes popoverIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-100%) scale(1);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-3;
+  padding-bottom: $spacing-3;
+  border-bottom: 1px solid $color-gray-100;
+}
+
+.moodIcon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.headerInfo {
+  @include flex-column;
+  gap: 2px;
+}
+
+.moodLabel {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.date {
+  font-size: $font-size-xs;
+  color: $color-gray-400;
+}
+
+.details {
+  @include flex-column;
+  gap: $spacing-3;
+}
+
+.detailRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.detailIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.detailText {
+  font-size: $font-size-sm;
+  color: $color-gray-600;
+}
+
+.reflection {
+  font-size: $font-size-xs;
+  color: $color-gray-500;
+  line-height: $line-height-relaxed;
+}
+
+.feelings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-1;
+}
+
+.feelingTag {
+  display: inline-flex;
+  padding: 2px $spacing-2;
+  background: $color-gray-100;
+  color: $color-gray-600;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+}
+
+.moreTag {
+  @extend .feelingTag;
+  background: $color-primary-light;
+  color: $color-primary;
+}

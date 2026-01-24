@@ -1,0 +1,119 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-sm;
+
+  @include md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Left section - Mood display
+.moodSection {
+  @include flex-column;
+  align-items: flex-start;
+}
+
+.moodPrefix {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  margin-bottom: $spacing-1;
+}
+
+.moodLabel {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-gray-900;
+  margin-bottom: $spacing-4;
+}
+
+.moodIcon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: $spacing-4;
+}
+
+.quoteSection {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-2;
+}
+
+.quoteIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.quoteText {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  font-style: italic;
+  line-height: $line-height-relaxed;
+}
+
+// Right section - Details
+.detailsSection {
+  @include flex-column;
+  gap: $spacing-5;
+}
+
+.detailBlock {
+  @include flex-column;
+  gap: $spacing-2;
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.detailIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.detailLabel {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+}
+
+.detailValue {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.reflectionText {
+  font-size: $font-size-sm;
+  color: $color-gray-600;
+  line-height: $line-height-relaxed;
+}
+
+// Feelings tags
+.feelings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-top: auto;
+}
+
+.feelingTag {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-3;
+  background: $color-primary-light;
+  color: $color-primary;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}

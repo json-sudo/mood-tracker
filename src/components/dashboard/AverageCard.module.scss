@@ -1,0 +1,97 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  padding: $spacing-5;
+  box-shadow: $shadow-sm;
+}
+
+.header {
+  margin-bottom: $spacing-4;
+}
+
+.title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+  display: inline;
+}
+
+.subtitle {
+  font-size: $font-size-xs;
+  color: $color-gray-400;
+  margin-left: $spacing-1;
+}
+
+// Empty state
+.emptyState {
+  @include flex-column;
+  gap: $spacing-2;
+}
+
+.emptyTitle {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  line-height: $line-height-relaxed;
+}
+
+// Data state
+.content {
+  @include flex-column;
+  gap: $spacing-3;
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.moodIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.moodLabel {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.sleepIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.sleepValue {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.trendRow {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-2;
+}
+
+.trendIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.trendText {
+  font-size: $font-size-xs;
+  color: $color-gray-400;
+  line-height: $line-height-base;
+}
