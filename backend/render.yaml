@@ -1,0 +1,11 @@
+services:
+ - type: web
+    name: mood-tracker-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+   - key: mongodb+srv://root:D9ykRmKpcWIkoHex@portfoliocluster.mnmbmgv.mongodb.net/mood_tracker?appName=PortfolioCluster&retryWrites=true&w=majority&tlsAllowInvalidCertificates=true
+        sync: false
+   - key: 7a728950521dd22a963d4ae5ed509395f379852aa8947fb2566737bbdbd29a1e
+        sync: false
