@@ -31,7 +31,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $spacing-6;
+  gap: $spacing-8;
 
   @include lg {
     grid-template-columns: 280px 1fr;
@@ -41,6 +41,8 @@
 .sidebar {
   @include flex-column;
   gap: $spacing-4;
+  background: $color-white;
+  border-radius: $radius-xl;
 }
 
 .chartSection {
