@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { SettingsModal } from '../settings';
 import styles from './Header.module.scss';
 import logo from '../../assets/images/logo.svg';
 import avatarPlaceholder from '../../assets/images/avatar-placeholder.svg';
@@ -11,6 +11,7 @@ import iconDropdownArrow from '../../assets/images/icon-dropdown-arrow.svg';
 export function Header() {
   const { user, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -27,59 +28,76 @@ export function Header() {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
+  const handleSettingsClick = () => {
+    setIsDropdownOpen(false);
+    setIsSettingsOpen(true);
+  };
+
+  const handleLogout = () => {
+    setIsDropdownOpen(false);
+    logout();
+  };
+
   return (
-    <header className={styles.header}>
-      <Link to="/" className={styles.logoLink}>
-        <img src={logo} alt="Mood Tracker" className={styles.logoIcon} />
-      </Link>
+    <>
+      <header className={styles.header}>
+        <a href="/" className={styles.logoLink}>
+          <img src={logo} alt="Mood Tracker" className={styles.logoIcon} />
+        </a>
 
-      <div className={styles.userMenu} ref={dropdownRef}>
-        <button
-          className={styles.avatarButton}
-          onClick={toggleDropdown}
-          aria-expanded={isDropdownOpen}
-          aria-haspopup="true"
-        >
-          <img
-            src={user?.avatar_url || avatarPlaceholder}
-            alt={user?.name || 'User'}
-            className={styles.avatar}
-          />
-          <img
-            src={iconDropdownArrow}
-            alt=""
-            className={`${styles.dropdownArrow} ${isDropdownOpen ? styles.open : ''}`}
-          />
-        </button>
+        <div className={styles.userMenu} ref={dropdownRef}>
+          <button
+            className={styles.avatarButton}
+            onClick={toggleDropdown}
+            aria-expanded={isDropdownOpen}
+            aria-haspopup="true"
+          >
+            <img
+              src={user?.avatar_url || avatarPlaceholder}
+              alt={user?.name || 'User'}
+              className={styles.avatar}
+            />
+            <img
+              src={iconDropdownArrow}
+              alt=""
+              className={`${styles.dropdownArrow} ${isDropdownOpen ? styles.open : ''}`}
+            />
+          </button>
 
-        {isDropdownOpen && (
-          <div className={styles.dropdown}>
-            <div className={styles.dropdownHeader}>
-              <img
-                src={user?.avatar_url || avatarPlaceholder}
-                alt=""
-                className={styles.dropdownAvatar}
-              />
-              <div className={styles.dropdownUserInfo}>
+          {isDropdownOpen && (
+            <div className={styles.dropdown}>
+              {/* User info header */}
+              <div className={styles.dropdownHeader}>
+                <img
+                  src={user?.avatar_url || avatarPlaceholder}
+                  alt=""
+                  className={styles.dropdownAvatar}
+                />
                 <span className={styles.dropdownName}>{user?.name}</span>
-                <span className={styles.dropdownEmail}>{user?.email}</span>
               </div>
+
+              <div className={styles.dropdownDivider} />
+
+              {/* Menu items */}
+              <button className={styles.dropdownItem} onClick={handleSettingsClick}>
+                <img src={iconSettings} alt="" className={styles.dropdownItemIcon} />
+                <span>Settings</span>
+              </button>
+
+              <button className={styles.dropdownItem} onClick={handleLogout}>
+                <img src={iconLogout} alt="" className={styles.dropdownItemIcon} />
+                <span>Logout</span>
+              </button>
             </div>
+          )}
+        </div>
+      </header>
 
-            <div className={styles.dropdownDivider} />
-
-            <Link to="/settings" className={styles.dropdownItem} onClick={() => setIsDropdownOpen(false)}>
-              <img src={iconSettings} alt="" className={styles.dropdownItemIcon} />
-              <span>Settings</span>
-            </Link>
-
-            <button className={styles.dropdownItem} onClick={logout}>
-              <img src={iconLogout} alt="" className={styles.dropdownItemIcon} />
-              <span>Log out</span>
-            </button>
-          </div>
-        )}
-      </div>
-    </header>
+      {/* Settings Modal */}
+      <SettingsModal 
+        isOpen={isSettingsOpen} 
+        onClose={() => setIsSettingsOpen(false)} 
+      />
+    </>
   );
 }

@@ -27,12 +27,6 @@
   height: 40px;
 }
 
-.logoText {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: $color-gray-900;
-}
-
 .userMenu {
   position: relative;
 }
@@ -40,7 +34,6 @@
 .avatarButton {
   display: flex;
   align-items: center;
-  gap: $spacing-2;
   background: none;
   border: none;
   cursor: pointer;
@@ -61,8 +54,9 @@
 }
 
 .dropdownArrow {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
+  margin-left: $spacing-1;
   transition: transform $transition-fast;
 
   &.open {
@@ -70,16 +64,29 @@
   }
 }
 
+// Dropdown
 .dropdown {
   position: absolute;
   top: calc(100% + $spacing-2);
   right: 0;
-  min-width: 240px;
+  min-width: 180px;
   background: $color-bg-card;
   border-radius: $radius-xl;
   box-shadow: $shadow-lg;
   padding: $spacing-2;
   z-index: $z-dropdown;
+  animation: dropdownIn 0.15s ease-out;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdownHeader {
@@ -90,31 +97,22 @@
 }
 
 .dropdownAvatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: $radius-full;
   object-fit: cover;
 }
 
-.dropdownUserInfo {
-  @include flex-column;
-  gap: $spacing-1;
-}
-
 .dropdownName {
+  font-size: $font-size-sm;
   font-weight: $font-weight-medium;
   color: $color-gray-900;
-}
-
-.dropdownEmail {
-  font-size: $font-size-sm;
-  color: $color-gray-400;
 }
 
 .dropdownDivider {
   height: 1px;
   background: $color-gray-200;
-  margin: $spacing-2 0;
+  margin: $spacing-1 $spacing-2;
 }
 
 .dropdownItem {
@@ -128,16 +126,17 @@
   border-radius: $radius-lg;
   cursor: pointer;
   text-decoration: none;
-  color: $color-gray-900;
-  font-size: $font-size-base;
-  transition: background $transition-fast;
+  color: $color-gray-600;
+  font-size: $font-size-sm;
+  transition: background $transition-fast, color $transition-fast;
 
   &:hover {
     background: $color-gray-100;
+    color: $color-gray-900;
   }
 }
 
 .dropdownItemIcon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }

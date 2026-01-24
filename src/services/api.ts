@@ -28,122 +28,148 @@ const api = axios.create({
 // -----------------------------
 const TOKEN_KEY = 'mood_tracker_tokens';
 
-export const getStoredTokens = (): AuthTokens | null => {
+export function getStoredTokens(): AuthTokens | null {
   const stored = localStorage.getItem(TOKEN_KEY);
-  return stored ? JSON.parse(stored) : null;
-};
+  if (!stored) return null;
+  
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return null;
+  }
+}
 
-export const setStoredTokens = (tokens: AuthTokens): void => {
+export function setStoredTokens(tokens: AuthTokens): void {
   localStorage.setItem(TOKEN_KEY, JSON.stringify(tokens));
-};
+}
 
-export const clearStoredTokens = (): void => {
+export function clearStoredTokens(): void {
   localStorage.removeItem(TOKEN_KEY);
-};
+}
 
 // -----------------------------
-// Request Interceptor
+// Request Interceptor - Add Auth Header
 // -----------------------------
 api.interceptors.request.use(
   (config) => {
     const tokens = getStoredTokens();
-    if (tokens?.access_token) {
+    
+    if (tokens?.access_token && config.headers) {
       config.headers.Authorization = `Bearer ${tokens.access_token}`;
     }
+    
     return config;
   },
   (error) => Promise.reject(error)
 );
 
 // -----------------------------
-// Response Interceptor (Token Refresh)
+// Response Interceptor - Token Refresh
 // -----------------------------
 let isRefreshing = false;
-let refreshSubscribers: ((token: string) => void)[] = [];
+let failedQueue: Array<{
+  resolve: (value: unknown) => void;
+  reject: (reason?: unknown) => void;
+}> = [];
 
-const subscribeTokenRefresh = (cb: (token: string) => void) => {
-  refreshSubscribers.push(cb);
-};
-
-const onTokenRefreshed = (token: string) => {
-  refreshSubscribers.forEach((cb) => cb(token));
-  refreshSubscribers = [];
+const processQueue = (error: Error | null, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
 };
 
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError<ApiError>) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
-
-    // If 401 and not already retrying
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      const tokens = getStoredTokens();
-
-      // No refresh token available
-      if (!tokens?.refresh_token) {
-        clearStoredTokens();
-        window.location.href = '/login';
-        return Promise.reject(error);
-      }
-
+    
+    // If 401 and not a refresh request, try to refresh token
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url?.includes('/auth/refresh')
+    ) {
       if (isRefreshing) {
-        // Wait for token refresh
-        return new Promise((resolve) => {
-          subscribeTokenRefresh((token: string) => {
+        // Queue this request while refresh is in progress
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
             if (originalRequest.headers) {
               originalRequest.headers.Authorization = `Bearer ${token}`;
             }
-            resolve(api(originalRequest));
-          });
-        });
+            return api(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
       }
 
       originalRequest._retry = true;
       isRefreshing = true;
 
-      try {
-        const response = await axios.post<AuthTokens>(
-          `${API_BASE_URL}/api/auth/refresh`,
-          { refresh_token: tokens.refresh_token }
-        );
+      const tokens = getStoredTokens();
+      
+      if (!tokens?.refresh_token) {
+        clearStoredTokens();
+        processQueue(new Error('No refresh token'), null);
+        isRefreshing = false;
+        return Promise.reject(error);
+      }
 
+      try {
+        const response = await api.post<AuthTokens>('/auth/refresh', {
+          refresh_token: tokens.refresh_token,
+        });
+        
         const newTokens = response.data;
         setStoredTokens(newTokens);
-        onTokenRefreshed(newTokens.access_token);
-
+        
+        processQueue(null, newTokens.access_token);
+        
         if (originalRequest.headers) {
           originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
         }
+        
         return api(originalRequest);
       } catch (refreshError) {
         clearStoredTokens();
-        window.location.href = '/login';
+        processQueue(refreshError as Error, null);
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
       }
     }
-
+    
     return Promise.reject(error);
   }
 );
+
+// ===========================================
+// API METHODS
+// ===========================================
 
 // -----------------------------
 // Auth API
 // -----------------------------
 export const authApi = {
-  register: async (email: string, password: string, name: string): Promise<User> => {
-    const response = await api.post<User>('/auth/register', { email, password, name });
+  login: async (email: string, password: string): Promise<AuthTokens> => {
+    const response = await api.post<AuthTokens>('/auth/login', {
+      email,
+      password,
+      name: '', // Required by backend but not used for login
+    });
     return response.data;
   },
 
-  login: async (email: string, password: string): Promise<AuthTokens> => {
-    // Note: Our backend expects name field too, but we only need email/password for login
-    // The backend reuses UserCreate schema, so we pass a dummy name
-    const response = await api.post<AuthTokens>('/auth/login', { 
-      email, 
+  register: async (email: string, password: string, name: string): Promise<User> => {
+    const response = await api.post<User>('/auth/register', {
+      email,
       password,
-      name: 'login' // Backend ignores this for login
+      name,
     });
     return response.data;
   },
@@ -181,8 +207,16 @@ export const entriesApi = {
   },
 
   getTodayEntry: async (): Promise<MoodEntry | null> => {
-    const response = await api.get<MoodEntry | null>('/entries/today');
-    return response.data;
+    try {
+      const response = await api.get<MoodEntry>('/entries/today');
+      return response.data;
+    } catch (error) {
+      // 404 means no entry for today - that's expected
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        return null;
+      }
+      throw error;
+    }
   },
 
   createEntry: async (data: MoodEntryCreate): Promise<MoodEntry> => {
@@ -190,9 +224,51 @@ export const entriesApi = {
     return response.data;
   },
 
-  getAverages: async (): Promise<MoodAverages> => {
-    const response = await api.get<MoodAverages>('/entries/averages');
-    return response.data;
+  getAverages: async (): Promise<MoodAverages | null> => {
+    try {
+      const response = await api.get<MoodAverages>('/entries/averages');
+      return response.data;
+    } catch (error) {
+      // May fail if not enough entries
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        return null;
+      }
+      throw error;
+    }
+  },
+};
+
+// -----------------------------
+// Upload API
+// -----------------------------
+interface UploadResponse {
+  url: string;
+  success: boolean;
+  size?: number;
+  type?: string;
+}
+
+export const uploadApi = {
+  /**
+   * Upload an avatar image
+   * @param file The image file to upload
+   * @returns The URL of the uploaded image
+   */
+  uploadAvatar: async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await api.post<UploadResponse>('/upload/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    if (!response.data.success || !response.data.url) {
+      throw new Error('Upload failed');
+    }
+
+    return response.data.url;
   },
 };
 
