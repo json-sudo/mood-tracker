@@ -6,18 +6,26 @@ import {
   AverageMoodCard,
   AverageSleepCard,
   TrendChart,
+  MoodLoggerModal,
 } from '../components/dashboard';
 import { useMoodData } from '../hooks';
 import styles from './DashboardPage.module.scss';
 
 export function DashboardPage() {
-  const { todayEntry, entries, averages, isLoading } = useMoodData();
+  const { todayEntry, entries, averages, isLoading, refetch } = useMoodData();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogMood = () => {
     setIsModalOpen(true);
-    // Modal component will be added later
-    console.log('Open mood logger modal');
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleMoodLogged = async () => {
+    setIsModalOpen(false);
+    await refetch();
   };
 
   if (isLoading) {
@@ -58,13 +66,12 @@ export function DashboardPage() {
         </section>
       </div>
 
-      {/* Mood Logger Modal - will be added later */}
-      {isModalOpen && (
-        <div className={styles.modalPlaceholder}>
-          <p>Mood Logger Modal (design pending)</p>
-          <button onClick={() => setIsModalOpen(false)}>Close</button>
-        </div>
-      )}
+      {/* Mood Logger Modal */}
+      <MoodLoggerModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onSuccess={handleMoodLogged}
+      />
     </DashboardLayout>
   );
 }

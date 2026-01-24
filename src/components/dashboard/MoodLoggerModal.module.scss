@@ -1,0 +1,302 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// Overlay
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(33, 33, 77, 0.6);
+  z-index: $z-modal;
+  @include flex-center;
+  padding: $spacing-4;
+}
+
+// Modal container
+.modal {
+  background: $color-white;
+  border-radius: $radius-xl;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $shadow-xl;
+  animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// Header
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-5 $spacing-6 $spacing-3;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.closeButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  color: $color-gray-400;
+  cursor: pointer;
+  @include flex-center;
+  border-radius: $radius-md;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: $color-gray-100;
+    color: $color-gray-600;
+  }
+}
+
+// Progress bar
+.progressBar {
+  height: 4px;
+  background: $color-gray-200;
+  margin: 0 $spacing-6;
+  border-radius: $radius-full;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: $color-primary;
+  border-radius: $radius-full;
+  transition: width 0.3s ease;
+}
+
+// Content
+.content {
+  padding: $spacing-5 $spacing-6;
+}
+
+.stepContent {
+  @include flex-column;
+  gap: $spacing-4;
+}
+
+.question {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-gray-900;
+}
+
+.subtitle {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  margin-top: -$spacing-2;
+}
+
+// Step 1: Mood options
+.moodOptions {
+  @include flex-column;
+  gap: $spacing-2;
+}
+
+.moodOption {
+  display: flex;
+  align-items: center;
+  padding: $spacing-3 $spacing-4;
+  border: 2px solid $color-gray-200;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: border-color $transition-fast, background $transition-fast;
+
+  &:hover {
+    border-color: $color-gray-300;
+  }
+
+  &.selected {
+    border-color: $color-primary;
+    background: $color-primary-light;
+  }
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.moodLabel {
+  flex: 1;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-gray-900;
+}
+
+.moodIcon {
+  width: 28px;
+  height: 28px;
+}
+
+// Step 2: Feeling tags
+.feelingTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.feelingTag {
+  padding: $spacing-2 $spacing-3;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-md;
+  background: $color-white;
+  font-size: $font-size-sm;
+  color: $color-gray-600;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+
+  &.selected {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Step 3: Reflection
+.reflectionInput {
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-lg;
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  color: $color-gray-900;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color $transition-fast;
+
+  &::placeholder {
+    color: $color-gray-300;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+.charCount {
+  font-size: $font-size-xs;
+  color: $color-gray-400;
+  text-align: right;
+}
+
+// Step 4: Sleep options
+.sleepOptions {
+  @include flex-column;
+  gap: $spacing-2;
+}
+
+.sleepOption {
+  display: flex;
+  align-items: center;
+  padding: $spacing-3 $spacing-4;
+  border: 2px solid $color-gray-200;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: border-color $transition-fast, background $transition-fast;
+
+  &:hover {
+    border-color: $color-gray-300;
+  }
+
+  &.selected {
+    border-color: $color-primary;
+    background: $color-primary-light;
+  }
+}
+
+.sleepLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-gray-900;
+}
+
+// Error message
+.error {
+  font-size: $font-size-sm;
+  color: $color-error;
+  text-align: center;
+  margin-top: $spacing-2;
+}
+
+// Footer
+.footer {
+  display: flex;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-6 $spacing-6;
+}
+
+.backButton {
+  padding: $spacing-3 $spacing-5;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-lg;
+  background: $color-white;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-gray-600;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    border-color: $color-gray-300;
+    background: $color-gray-50;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.continueButton,
+.submitButton {
+  flex: 1;
+  padding: $spacing-3 $spacing-5;
+  border: none;
+  border-radius: $radius-lg;
+  background: $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-white;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: $color-primary-hover;
+  }
+
+  &:disabled {
+    background: $color-gray-300;
+    cursor: not-allowed;
+  }
+}

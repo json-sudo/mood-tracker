@@ -4,3 +4,4 @@ export { AverageMoodCard } from './AverageMoodCard';
 export { AverageSleepCard } from './AverageSleepCard';
 export { TrendChart } from './TrendChart';
 export { ChartPopover } from './ChartPopover';
+export { MoodLoggerModal } from './MoodLoggerModal';
