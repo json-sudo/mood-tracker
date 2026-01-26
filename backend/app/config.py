@@ -3,17 +3,13 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    # MongoDB
-    mongodb_url: str = "mongodb://localhost:27017"
-    database_name: str = "mood_tracker"
+    mongodb_url: str
+    jwt_secret_key: str
 
-    # JWT
-    jwt_secret_key: str = "your-super-secret-key-change-in-production"
+    database_name: str = "mood_tracker"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     refresh_token_expire_days: int = 7
-
-    # CORS
     cors_origins: str = "http://localhost:5173,http://localhost:3000"
 
     @property

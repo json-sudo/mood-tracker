@@ -3,7 +3,7 @@ from app.models.entry import MoodEntry, MoodEntryCreate, MoodEntryInDB, MoodAver
 
 __all__ = [
     "User",
-    "UserCreate", 
+    "UserCreate",
     "UserUpdate",
     "UserInDB",
     "MoodEntry",

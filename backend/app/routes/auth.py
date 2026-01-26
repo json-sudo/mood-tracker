@@ -22,8 +22,6 @@ async def register(
     user_data: UserCreate,
     db: AsyncIOMotorDatabase = Depends(get_database),
 ):
-    """Register a new user account."""
-    # Check if email already exists
     existing_user = await db.users.find_one({"email": user_data.email})
     if existing_user:
         raise HTTPException(
@@ -31,7 +29,6 @@ async def register(
             detail="Email already registered",
         )
 
-    # Create new user
     user_id = str(uuid.uuid4())
     user_doc = {
         "_id": user_id,
@@ -58,8 +55,6 @@ async def login(
     user_data: UserLogin,
     db: AsyncIOMotorDatabase = Depends(get_database),
 ):
-    """Login and receive access and refresh tokens."""
-    # Find user by email
     user_doc = await db.users.find_one({"email": user_data.email})
     if not user_doc:
         raise HTTPException(
@@ -67,14 +62,12 @@ async def login(
             detail="Invalid email or password",
         )
 
-    # Verify password
     if not verify_password(user_data.password, user_doc["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
         )
 
-    # Generate tokens
     user_id = str(user_doc["_id"])
     return Token(
         access_token=create_access_token(user_id),
@@ -87,8 +80,6 @@ async def refresh_token(
     request: RefreshTokenRequest,
     db: AsyncIOMotorDatabase = Depends(get_database),
 ):
-    """Refresh access token using a valid refresh token."""
-    # Decode the refresh token
     payload = decode_token(request.refresh_token)
     if payload is None:
         raise HTTPException(
@@ -96,14 +87,12 @@ async def refresh_token(
             detail="Invalid or expired refresh token",
         )
 
-    # Ensure it's a refresh token
     if payload.type != "refresh":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token type",
         )
 
-    # Verify user still exists
     user_doc = await db.users.find_one({"_id": payload.sub})
     if not user_doc:
         raise HTTPException(
@@ -111,7 +100,6 @@ async def refresh_token(
             detail="User not found",
         )
 
-    # Generate new tokens
     user_id = str(user_doc["_id"])
     return Token(
         access_token=create_access_token(user_id),

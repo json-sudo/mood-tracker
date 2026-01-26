@@ -18,7 +18,6 @@ async def get_current_user(
     """
     token = credentials.credentials
     
-    # Decode and validate the token
     payload = decode_token(token)
     if payload is None:
         raise HTTPException(
@@ -27,7 +26,6 @@ async def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    # Ensure it's an access token, not a refresh token
     if payload.type != "access":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -35,7 +33,6 @@ async def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    # Fetch user from database
     user_doc = await db.users.find_one({"_id": payload.sub})
     if user_doc is None:
         raise HTTPException(

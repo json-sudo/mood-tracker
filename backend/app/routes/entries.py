@@ -12,7 +12,6 @@ router = APIRouter()
 
 
 def get_today_range() -> tuple[datetime, datetime]:
-    """Get the start and end of today in UTC."""
     now = datetime.now(timezone.utc)
     start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
     end_of_day = start_of_day + timedelta(days=1)
@@ -25,7 +24,6 @@ async def get_entries(
     db: AsyncIOMotorDatabase = Depends(get_database),
     current_user: UserInDB = Depends(get_current_user),
 ):
-    """Get the user's mood entries, ordered by most recent first."""
     cursor = db.entries.find(
         {"user_id": current_user.id}
     ).sort("created_at", -1).limit(limit)
@@ -50,7 +48,6 @@ async def get_today_entry(
     db: AsyncIOMotorDatabase = Depends(get_database),
     current_user: UserInDB = Depends(get_current_user),
 ):
-    """Get today's mood entry if it exists."""
     start_of_day, end_of_day = get_today_range()
 
     doc = await db.entries.find_one({
@@ -78,10 +75,8 @@ async def create_entry(
     db: AsyncIOMotorDatabase = Depends(get_database),
     current_user: UserInDB = Depends(get_current_user),
 ):
-    """Create a new mood entry. Only one entry per day is allowed."""
     start_of_day, end_of_day = get_today_range()
 
-    # Check if entry already exists for today
     existing = await db.entries.find_one({
         "user_id": current_user.id,
         "created_at": {"$gte": start_of_day, "$lt": end_of_day},
@@ -93,7 +88,6 @@ async def create_entry(
             detail="You have already logged your mood today",
         )
 
-    # Create the entry
     entry_id = str(uuid.uuid4())
     entry_doc = {
         "_id": entry_id,
@@ -123,11 +117,6 @@ async def get_averages(
     db: AsyncIOMotorDatabase = Depends(get_database),
     current_user: UserInDB = Depends(get_current_user),
 ):
-    """
-    Calculate mood and sleep averages.
-    Compares the last 5 entries with the previous 5 entries.
-    """
-    # Get last 10 entries
     cursor = db.entries.find(
         {"user_id": current_user.id}
     ).sort("created_at", -1).limit(10)
@@ -152,12 +141,10 @@ async def get_averages(
             entries_count=0,
         )
 
-    # Calculate current averages (last 5 or fewer)
     current_entries = entries[:min(5, total_entries)]
     current_mood_avg = sum(e["mood"] for e in current_entries) / len(current_entries)
     current_sleep_avg = sum(e["sleep_hours"] for e in current_entries) / len(current_entries)
 
-    # Calculate previous averages (entries 6-10)
     previous_entries = entries[5:10] if total_entries > 5 else []
     
     if previous_entries:
@@ -167,7 +154,6 @@ async def get_averages(
         previous_mood_avg = None
         previous_sleep_avg = None
 
-    # Determine trends
     def get_trend(current: float, previous: float | None) -> str:
         if previous is None:
             return "same"

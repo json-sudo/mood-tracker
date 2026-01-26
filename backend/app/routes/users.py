@@ -12,7 +12,6 @@ router = APIRouter()
 async def get_current_user_profile(
     current_user: UserInDB = Depends(get_current_user),
 ):
-    """Get the current user's profile."""
     return User(
         id=current_user.id,
         email=current_user.email,
@@ -28,8 +27,6 @@ async def update_current_user_profile(
     db: AsyncIOMotorDatabase = Depends(get_database),
     current_user: UserInDB = Depends(get_current_user),
 ):
-    """Update the current user's profile (name and/or avatar)."""
-    # Build update document with only provided fields
     update_data = {}
     if user_update.name is not None:
         update_data["name"] = user_update.name
@@ -42,7 +39,6 @@ async def update_current_user_profile(
             {"$set": update_data},
         )
 
-    # Fetch updated user
     user_doc = await db.users.find_one({"_id": current_user.id})
 
     return User(

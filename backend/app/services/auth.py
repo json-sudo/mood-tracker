@@ -6,22 +6,18 @@ from app.models.token import TokenPayload
 
 settings = get_settings()
 
-# Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
-    """Hash a password using bcrypt."""
     return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against its hash."""
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def create_access_token(user_id: str) -> str:
-    """Create a JWT access token."""
     expire = datetime.now(timezone.utc) + timedelta(
         minutes=settings.access_token_expire_minutes
     )
@@ -34,7 +30,6 @@ def create_access_token(user_id: str) -> str:
 
 
 def create_refresh_token(user_id: str) -> str:
-    """Create a JWT refresh token."""
     expire = datetime.now(timezone.utc) + timedelta(
         days=settings.refresh_token_expire_days
     )
@@ -47,7 +42,6 @@ def create_refresh_token(user_id: str) -> str:
 
 
 def decode_token(token: str) -> TokenPayload | None:
-    """Decode and validate a JWT token."""
     try:
         payload = jwt.decode(
             token, 
