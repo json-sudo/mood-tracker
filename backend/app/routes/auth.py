@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 import uuid
 
 from app.database import get_database
-from app.models.user import UserCreate, User
+from app.models.user import UserCreate, UserLogin, User
 from app.models.token import Token, RefreshTokenRequest
 from app.services.auth import (
     hash_password,
@@ -55,7 +55,7 @@ async def register(
 
 @router.post("/login", response_model=Token)
 async def login(
-    user_data: UserCreate,
+    user_data: UserLogin,
     db: AsyncIOMotorDatabase = Depends(get_database),
 ):
     """Login and receive access and refresh tokens."""

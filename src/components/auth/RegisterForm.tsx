@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { getApiErrorMessage } from '../../utils';
 import styles from './AuthForm.module.scss';
 
 // ===========================================
@@ -39,14 +40,7 @@ export function RegisterForm() {
       await register(email, password, name);
       navigate('/');
     } catch (err) {
-      if (err instanceof Error) {
-        // Check for specific error messages from API
-        const message = (err as { response?: { data?: { detail?: string } } })
-          ?.response?.data?.detail;
-        setError(message || 'Registration failed. Please try again.');
-      } else {
-        setError('An unexpected error occurred');
-      }
+      setError(getApiErrorMessage(err, 'Registration failed. Please try again.'));
     } finally {
       setIsLoading(false);
     }

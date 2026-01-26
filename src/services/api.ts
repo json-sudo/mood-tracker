@@ -160,7 +160,6 @@ export const authApi = {
     const response = await api.post<AuthTokens>('/auth/login', {
       email,
       password,
-      name: '', // Required by backend but not used for login
     });
     return response.data;
   },

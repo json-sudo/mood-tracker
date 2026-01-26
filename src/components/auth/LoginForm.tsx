@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { getApiErrorMessage } from '../../utils';
 import styles from './AuthForm.module.scss';
 
 // ===========================================
@@ -25,11 +26,7 @@ export function LoginForm() {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      if (err instanceof Error) {
-        setError('Invalid email or password');
-      } else {
-        setError('An unexpected error occurred');
-      }
+      setError(getApiErrorMessage(err, 'Invalid email or password'));
     } finally {
       setIsLoading(false);
     }
