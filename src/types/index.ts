@@ -1,10 +1,3 @@
-// ===========================================
-// TYPE DEFINITIONS - Mood Tracker
-// ===========================================
-
-// -----------------------------
-// User Types
-// -----------------------------
 export interface User {
   id: string;
   email: string;
@@ -18,9 +11,6 @@ export interface UserUpdate {
   avatar_url?: string;
 }
 
-// -----------------------------
-// Auth Types
-// -----------------------------
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -39,9 +29,6 @@ export interface AuthTokens {
   token_type: string;
 }
 
-// -----------------------------
-// Mood Entry Types
-// -----------------------------
 export type MoodLevel = -2 | -1 | 0 | 1 | 2;
 
 export interface MoodEntry {
@@ -71,9 +58,6 @@ export interface MoodAverages {
   entries_count: number;
 }
 
-// -----------------------------
-// Mood Metadata
-// -----------------------------
 export const MOOD_LABELS: Record<MoodLevel, string> = {
   [-2]: 'Very Sad',
   [-1]: 'Sad',
@@ -103,9 +87,6 @@ export const FEELINGS_OPTIONS = [
   'Overwhelmed',
 ] as const;
 
-// -----------------------------
-// API Response Types
-// -----------------------------
 export interface ApiError {
   detail: string;
 }

@@ -4,10 +4,6 @@ import { useAuth } from '../../context/AuthContext';
 import { getApiErrorMessage } from '../../utils';
 import styles from './AuthForm.module.scss';
 
-// ===========================================
-// LOGIN FORM
-// ===========================================
-
 export function LoginForm() {
   const navigate = useNavigate();
   const { login } = useAuth();

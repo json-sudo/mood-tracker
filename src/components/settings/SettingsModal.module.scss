@@ -1,7 +1,6 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-// Overlay
 .overlay {
   position: fixed;
   inset: 0;
@@ -11,7 +10,6 @@
   padding: $spacing-4;
 }
 
-// Modal container
 .modal {
   background: $color-white;
   border-radius: $radius-xl;
@@ -33,7 +31,6 @@
   }
 }
 
-// Header
 .header {
   display: flex;
   justify-content: space-between;
@@ -72,7 +69,6 @@
   }
 }
 
-// Form fields
 .field {
   margin-bottom: $spacing-5;
 }
@@ -105,7 +101,6 @@
   }
 }
 
-// Avatar field
 .avatarField {
   display: flex;
   align-items: center;
@@ -160,14 +155,12 @@
   display: none;
 }
 
-// Error message
 .error {
   font-size: $font-size-sm;
   color: $color-error;
   margin-bottom: $spacing-4;
 }
 
-// Submit button
 .submitButton {
   width: 100%;
   padding: $spacing-3 $spacing-5;

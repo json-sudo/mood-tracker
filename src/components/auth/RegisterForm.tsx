@@ -4,10 +4,6 @@ import { useAuth } from '../../context/AuthContext';
 import { getApiErrorMessage } from '../../utils';
 import styles from './AuthForm.module.scss';
 
-// ===========================================
-// REGISTER FORM
-// ===========================================
-
 export function RegisterForm() {
   const navigate = useNavigate();
   const { register } = useAuth();
@@ -23,7 +19,6 @@ export function RegisterForm() {
     e.preventDefault();
     setError('');
 
-    // Validation
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;

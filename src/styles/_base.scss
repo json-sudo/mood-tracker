@@ -1,13 +1,6 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
-// ===========================================
-// BASE STYLES - Mood Tracker
-// ===========================================
-
-// -----------------------------
-// Font Face
-// -----------------------------
 @font-face {
   font-family: 'Reddit Sans';
   src: url('../assets/fonts/Reddit_Sans/RedditSans-VariableFont_wght.ttf') format('truetype');
@@ -24,9 +17,6 @@
   font-display: swap;
 }
 
-// -----------------------------
-// CSS Reset
-// -----------------------------
 *,
 *::before,
 *::after {
@@ -55,9 +45,6 @@ body {
   min-height: 100vh;
 }
 
-// -----------------------------
-// Typography
-// -----------------------------
 h1, h2, h3, h4, h5, h6 {
   font-weight: $font-weight-semibold;
   line-height: $line-height-tight;
@@ -94,9 +81,6 @@ a {
   }
 }
 
-// -----------------------------
-// Form Elements
-// -----------------------------
 button {
   font-family: $font-family-base;
   cursor: pointer;
@@ -108,33 +92,21 @@ select {
   font-family: $font-family-base;
 }
 
-// -----------------------------
-// Lists
-// -----------------------------
 ul, ol {
   list-style: none;
 }
 
-// -----------------------------
-// Images
-// -----------------------------
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-// -----------------------------
-// Selection
-// -----------------------------
 ::selection {
   background: $color-primary;
   color: $color-white;
 }
 
-// -----------------------------
-// Focus States
-// -----------------------------
 :focus {
   outline: none;
 }
@@ -144,16 +116,10 @@ img {
   outline-offset: 2px;
 }
 
-// -----------------------------
-// Scrollbar
-// -----------------------------
 body {
   @include custom-scrollbar;
 }
 
-// -----------------------------
-// Utility Classes
-// -----------------------------
 .visually-hidden {
   position: absolute;
   width: 1px;

@@ -18,7 +18,6 @@ export function ChartPopover({ entry, position, onClose }: ChartPopoverProps) {
 
   return (
     <>
-      {/* Backdrop to close popover */}
       <div className={styles.backdrop} onClick={onClose} />
       
       <div
@@ -29,7 +28,6 @@ export function ChartPopover({ entry, position, onClose }: ChartPopoverProps) {
         }}
         data-mood={entry.mood}
       >
-        {/* Header with mood icon and label */}
         <div className={styles.header}>
           <img 
             src={getMoodIcon(entry.mood)} 
@@ -43,7 +41,6 @@ export function ChartPopover({ entry, position, onClose }: ChartPopoverProps) {
         </div>
 
         <div className={styles.details}>
-          {/* Sleep */}
           <div className={styles.detailRow}>
             <img src={iconSleep} alt="" className={styles.detailIcon} />
             <span className={styles.detailText}>
@@ -51,7 +48,6 @@ export function ChartPopover({ entry, position, onClose }: ChartPopoverProps) {
             </span>
           </div>
 
-          {/* Reflection */}
           {entry.reflection && (
             <p className={styles.reflection}>
               {entry.reflection.length > 80
@@ -60,7 +56,6 @@ export function ChartPopover({ entry, position, onClose }: ChartPopoverProps) {
             </p>
           )}
 
-          {/* Feelings */}
           {entry.feelings.length > 0 && (
             <div className={styles.feelings}>
               {entry.feelings.slice(0, 4).map((feeling) => (

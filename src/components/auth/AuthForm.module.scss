@@ -1,10 +1,6 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-// ===========================================
-// AUTH FORM STYLES
-// ===========================================
-
 .form {
   @include flex-column;
   gap: $spacing-5;

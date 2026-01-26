@@ -1,7 +1,6 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-// Overlay
 .overlay {
   position: fixed;
   inset: 0;
@@ -11,7 +10,6 @@
   padding: $spacing-4;
 }
 
-// Modal container
 .modal {
   background: $color-white;
   border-radius: $radius-xl;
@@ -34,7 +32,6 @@
   }
 }
 
-// Header
 .header {
   display: flex;
   justify-content: space-between;
@@ -66,7 +63,6 @@
   }
 }
 
-// Progress bar
 .progressBar {
   height: 4px;
   background: $color-gray-200;
@@ -82,7 +78,6 @@
   transition: width 0.3s ease;
 }
 
-// Content
 .content {
   padding: $spacing-5 $spacing-6;
 }
@@ -104,7 +99,6 @@
   margin-top: -$spacing-2;
 }
 
-// Step 1: Mood options
 .moodOptions {
   @include flex-column;
   gap: $spacing-2;
@@ -147,7 +141,6 @@
   height: 28px;
 }
 
-// Step 2: Feeling tags
 .feelingTags {
   display: flex;
   flex-wrap: wrap;
@@ -181,7 +174,6 @@
   }
 }
 
-// Step 3: Reflection
 .reflectionInput {
   width: 100%;
   padding: $spacing-3 $spacing-4;
@@ -210,7 +202,6 @@
   text-align: right;
 }
 
-// Step 4: Sleep options
 .sleepOptions {
   @include flex-column;
   gap: $spacing-2;
@@ -241,7 +232,6 @@
   color: $color-gray-900;
 }
 
-// Error message
 .error {
   font-size: $font-size-sm;
   color: $color-error;
@@ -249,7 +239,6 @@
   margin-top: $spacing-2;
 }
 
-// Footer
 .footer {
   display: flex;
   gap: $spacing-3;

@@ -16,7 +16,6 @@ export function HeroSection({ hasTodayEntry, onLogMood }: HeroSectionProps) {
     month: 'long',
     day: 'numeric',
   });
-  // Add ordinal suffix (1st, 2nd, 3rd, etc.)
   const day = today.getDate();
   const ordinal = getOrdinalSuffix(day);
   const dateWithOrdinal = formattedDate.replace(String(day), `${day}${ordinal}`);

@@ -2,10 +2,6 @@ import type { ReactNode } from 'react';
 import styles from './AuthLayout.module.scss';
 import logo from '../../assets/images/logo.svg';
 
-// ===========================================
-// AUTH LAYOUT - Shared layout for login/register
-// ===========================================
-
 interface AuthLayoutProps {
   children: ReactNode;
   title: string;

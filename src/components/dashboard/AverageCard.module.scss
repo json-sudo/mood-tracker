@@ -25,7 +25,6 @@
   margin-left: $spacing-1;
 }
 
-// Empty state
 .emptyState {
   @include flex-column;
   gap: $spacing-2;
@@ -43,7 +42,6 @@
   line-height: $line-height-relaxed;
 }
 
-// Data state
 .content {
   @include flex-column;
   gap: $spacing-3;

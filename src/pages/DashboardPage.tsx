@@ -45,28 +45,23 @@ export function DashboardPage() {
     <DashboardLayout>
       <HeroSection hasTodayEntry={hasTodayEntry} onLogMood={handleLogMood} />
 
-      {/* Today's Mood Card - shown when mood is logged */}
       {hasTodayEntry && todayEntry && (
         <section className={styles.todaySection}>
           <TodayMoodCard entry={todayEntry} />
         </section>
       )}
 
-      {/* Main content grid */}
       <div className={styles.grid}>
-        {/* Left column - Averages */}
         <aside className={styles.sidebar}>
           <AverageMoodCard averages={averages} />
           <AverageSleepCard averages={averages} />
         </aside>
 
-        {/* Right column - Trend Chart */}
         <section className={styles.chartSection}>
           <TrendChart entries={entries} />
         </section>
       </div>
 
-      {/* Mood Logger Modal */}
       <MoodLoggerModal
         isOpen={isModalOpen}
         onClose={handleModalClose}

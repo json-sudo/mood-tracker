@@ -6,9 +6,6 @@ interface AverageSleepCardProps {
   averages: MoodAverages | null;
 }
 
-/**
- * Format average sleep hours to a range display (e.g., "5-6 Hours")
- */
 function formatSleepRange(hours: number): string {
   if (hours >= 9) return '9+ Hours';
   if (hours >= 7) return '7-8 Hours';

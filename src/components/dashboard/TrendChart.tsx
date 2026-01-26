@@ -25,7 +25,6 @@ interface ChartDataPoint {
   entry: MoodEntry;
 }
 
-// Y-axis labels for mood levels
 const Y_AXIS_LABELS: Record<number, string> = {
   5: '· 9+ hours',
   4: '· 7-8 hours',
@@ -39,16 +38,15 @@ export function TrendChart({ entries }: TrendChartProps) {
   const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
   const chartRef = useRef<HTMLDivElement>(null);
 
-  // Take last 11 entries and prepare chart data
   const chartData: ChartDataPoint[] = entries
     .slice(0, 11)
-    .reverse() // Show oldest to newest left to right
+    .reverse()
     .map((entry) => {
       const date = new Date(entry.created_at);
       return {
         date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         shortDate: date.toLocaleDateString('en-US', { weekday: 'short' }),
-        mood: entry.mood + 3, // Shift -2..2 to 1..5 for chart display
+        mood: entry.mood + 3,
         moodLevel: entry.mood,
         sleep: entry.sleep_hours,
         entry,
@@ -85,19 +83,16 @@ export function TrendChart({ entries }: TrendChartProps) {
     );
   }
 
-  // Custom bar with mood icon on top
   const CustomBar = (props: any) => {
     const { x, y, width, height, payload } = props;
     const iconSrc = getMoodIcon(payload.moodLevel);
     
-    // Calculate icon position (centered on top of bar)
     const iconSize = 24;
     const iconX = x + (width - iconSize) / 2;
     const iconY = y - iconSize - 4;
 
     return (
       <g>
-        {/* The bar itself */}
         <rect
           x={x}
           y={y}
@@ -108,7 +103,6 @@ export function TrendChart({ entries }: TrendChartProps) {
           fill={getMoodColor(payload.moodLevel)}
           className={styles.bar}
         />
-        {/* Mood icon on top */}
         <image
           href={iconSrc}
           x={iconX}

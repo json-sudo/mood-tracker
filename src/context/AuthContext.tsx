@@ -15,10 +15,6 @@ import {
   clearStoredTokens,
 } from '../services/api';
 
-// ===========================================
-// AUTH CONTEXT - Mood Tracker
-// ===========================================
-
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
@@ -31,9 +27,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// -----------------------------
-// Auth Provider
-// -----------------------------
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -42,7 +35,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check for existing session on mount
   useEffect(() => {
     const initAuth = async () => {
       const tokens = getStoredTokens();
@@ -52,7 +44,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const userData = await userApi.getMe();
           setUser(userData);
         } catch (error) {
-          // Token invalid or expired, clear storage
           clearStoredTokens();
         }
       }
@@ -63,7 +54,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     initAuth();
   }, []);
 
-  // Login
   const login = useCallback(async (email: string, password: string) => {
     const tokens = await authApi.login(email, password);
     setStoredTokens(tokens);
@@ -72,22 +62,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUser(userData);
   }, []);
 
-  // Register
   const register = useCallback(async (email: string, password: string, name: string) => {
-    // First register the user
     await authApi.register(email, password, name);
     
-    // Then log them in
     await login(email, password);
   }, [login]);
 
-  // Logout
   const logout = useCallback(() => {
     clearStoredTokens();
     setUser(null);
   }, []);
 
-  // Update user (used after profile updates)
   const updateUser = useCallback((updatedUser: User) => {
     setUser(updatedUser);
   }, []);
@@ -109,9 +94,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   );
 }
 
-// -----------------------------
-// Hook
-// -----------------------------
 export function useAuth() {
   const context = useContext(AuthContext);
   

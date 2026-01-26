@@ -44,7 +44,6 @@
   border-radius: $radius-full;
 }
 
-// Empty state
 .emptyState {
   @include flex-center;
   min-height: 280px;
@@ -57,7 +56,6 @@
   max-width: 300px;
 }
 
-// Chart
 .chartContainer {
   position: relative;
 }
@@ -75,7 +73,6 @@
   pointer-events: none;
 }
 
-// Responsive
 @include md {
   .header {
     flex-wrap: nowrap;

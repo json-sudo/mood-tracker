@@ -14,7 +14,6 @@ export function Header() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -66,7 +65,6 @@ export function Header() {
 
           {isDropdownOpen && (
             <div className={styles.dropdown}>
-              {/* User info header */}
               <div className={styles.dropdownHeader}>
                 <img
                   src={user?.avatar_url || avatarPlaceholder}
@@ -78,7 +76,6 @@ export function Header() {
 
               <div className={styles.dropdownDivider} />
 
-              {/* Menu items */}
               <button className={styles.dropdownItem} onClick={handleSettingsClick}>
                 <img src={iconSettings} alt="" className={styles.dropdownItemIcon} />
                 <span>Settings</span>
@@ -93,7 +90,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Settings Modal */}
       <SettingsModal 
         isOpen={isSettingsOpen} 
         onClose={() => setIsSettingsOpen(false)} 

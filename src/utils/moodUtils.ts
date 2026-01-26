@@ -1,12 +1,5 @@
-// ===========================================
-// MOOD UTILITIES - Mood Tracker
-// ===========================================
-
 import type { MoodLevel } from '../types';
 
-// -----------------------------
-// Mood Icon Paths (SVG assets)
-// -----------------------------
 import iconVerySadColor from '../assets/images/icon-very-sad-color.svg';
 import iconSadColor from '../assets/images/icon-sad-color.svg';
 import iconNeutralColor from '../assets/images/icon-neutral-color.svg';
@@ -27,7 +20,6 @@ import iconSleep from '../assets/images/icon-sleep.svg';
 import iconQuote from '../assets/images/icon-quote.svg';
 import iconReflection from '../assets/images/icon-reflection.svg';
 
-// Export icons for direct use
 export {
   iconSleep,
   iconQuote,
@@ -37,9 +29,6 @@ export {
   iconTrendSame,
 };
 
-// -----------------------------
-// Mood Icon Mapping (colored)
-// -----------------------------
 export const MOOD_ICONS: Record<MoodLevel, string> = {
   [-2]: iconVerySadColor,
   [-1]: iconSadColor,
@@ -48,9 +37,6 @@ export const MOOD_ICONS: Record<MoodLevel, string> = {
   [2]: iconVeryHappyColor,
 };
 
-// -----------------------------
-// Mood Icon Mapping (white - for dark backgrounds)
-// -----------------------------
 export const MOOD_ICONS_WHITE: Record<MoodLevel, string> = {
   [-2]: iconVerySadWhite,
   [-1]: iconSadWhite,
@@ -59,9 +45,6 @@ export const MOOD_ICONS_WHITE: Record<MoodLevel, string> = {
   [2]: iconVeryHappyWhite,
 };
 
-// -----------------------------
-// Mood Color Mapping (matches SCSS $mood-colors)
-// -----------------------------
 export const MOOD_COLORS: Record<MoodLevel, string> = {
   [-2]: '#FF9B99', // Very Sad
   [-1]: '#B8B1FF', // Sad
@@ -70,9 +53,6 @@ export const MOOD_COLORS: Record<MoodLevel, string> = {
   [2]: '#FFC97C',  // Very Happy
 };
 
-// -----------------------------
-// Mood Label Mapping
-// -----------------------------
 export const MOOD_LABELS: Record<MoodLevel, string> = {
   [-2]: 'Very Sad',
   [-1]: 'Sad',
@@ -81,41 +61,22 @@ export const MOOD_LABELS: Record<MoodLevel, string> = {
   [2]: 'Very Happy',
 };
 
-// -----------------------------
-// Helper Functions
-// -----------------------------
-
-/**
- * Get icon path for a mood level (colored version)
- */
 export function getMoodIcon(mood: MoodLevel): string {
   return MOOD_ICONS[mood] ?? MOOD_ICONS[0];
 }
 
-/**
- * Get icon path for a mood level (white version)
- */
 export function getMoodIconWhite(mood: MoodLevel): string {
   return MOOD_ICONS_WHITE[mood] ?? MOOD_ICONS_WHITE[0];
 }
 
-/**
- * Get color for a mood level
- */
 export function getMoodColor(mood: MoodLevel): string {
   return MOOD_COLORS[mood] ?? '#89CAFF';
 }
 
-/**
- * Get label for a mood level
- */
 export function getMoodLabel(mood: MoodLevel): string {
   return MOOD_LABELS[mood] ?? 'Neutral';
 }
 
-/**
- * Format sleep hours for display (e.g., "9+ hours", "5-6 Hours")
- */
 export function formatSleepHours(hours: number): string {
   if (hours >= 9) return '9+ hours';
   if (hours >= 7) return '7-8 Hours';
@@ -124,9 +85,6 @@ export function formatSleepHours(hours: number): string {
   return `${hours} hours`;
 }
 
-/**
- * Get a mood quote based on mood level
- */
 export function getMoodQuote(mood: MoodLevel): string {
   const quotes: Record<MoodLevel, string[]> = {
     [-2]: [
@@ -160,9 +118,6 @@ export function getMoodQuote(mood: MoodLevel): string {
   return moodQuotes[Math.floor(Math.random() * moodQuotes.length)];
 }
 
-/**
- * Get trend icon path
- */
 export function getTrendIcon(trend: 'increase' | 'decrease' | 'same'): string {
   switch (trend) {
     case 'increase':
@@ -176,9 +131,6 @@ export function getTrendIcon(trend: 'increase' | 'decrease' | 'same'): string {
   }
 }
 
-/**
- * Get trend description text
- */
 export function getTrendDescription(trend: 'increase' | 'decrease' | 'same', type: 'mood' | 'sleep'): string {
   if (type === 'mood') {
     switch (trend) {

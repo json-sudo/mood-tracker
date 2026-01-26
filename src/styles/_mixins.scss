@@ -1,12 +1,5 @@
 @use 'variables' as *;
 
-// ===========================================
-// MIXINS - Mood Tracker
-// ===========================================
-
-// -----------------------------
-// Responsive Breakpoints
-// -----------------------------
 @mixin sm {
   @media (min-width: $breakpoint-sm) {
     @content;
@@ -31,9 +24,6 @@
   }
 }
 
-// -----------------------------
-// Flexbox Utilities
-// -----------------------------
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -51,9 +41,6 @@
   flex-direction: column;
 }
 
-// -----------------------------
-// Card Styles
-// -----------------------------
 @mixin card {
   background: $color-bg-card;
   border-radius: $radius-xl;
@@ -70,9 +57,6 @@
   }
 }
 
-// -----------------------------
-// Button Base
-// -----------------------------
 @mixin button-base {
   display: inline-flex;
   align-items: center;
@@ -126,9 +110,6 @@
   }
 }
 
-// -----------------------------
-// Input Styles
-// -----------------------------
 @mixin input-base {
   width: 100%;
   padding: $spacing-3 $spacing-4;
@@ -164,9 +145,6 @@
   }
 }
 
-// -----------------------------
-// Text Truncation
-// -----------------------------
 @mixin truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -180,9 +158,6 @@
   overflow: hidden;
 }
 
-// -----------------------------
-// Focus Ring
-// -----------------------------
 @mixin focus-ring($color: $color-primary) {
   &:focus-visible {
     outline: 2px solid $color;
@@ -190,9 +165,6 @@
   }
 }
 
-// -----------------------------
-// Scrollbar Styling
-// -----------------------------
 @mixin custom-scrollbar {
   &::-webkit-scrollbar {
     width: 8px;
@@ -214,9 +186,6 @@
   }
 }
 
-// -----------------------------
-// Mood Color Helper
-// -----------------------------
 @mixin mood-background($mood) {
   background: map-get($mood-colors, $mood);
 }

@@ -9,7 +9,6 @@ interface AverageMoodCardProps {
 export function AverageMoodCard({ averages }: AverageMoodCardProps) {
   const hasEnoughData = averages && averages.entries_count >= 5;
 
-  // Map average to nearest mood level
   const getMoodLevelFromAvg = (avg: number): MoodLevel => {
     return Math.round(avg) as MoodLevel;
   };

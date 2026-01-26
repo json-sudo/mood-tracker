@@ -1,10 +1,6 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-// ===========================================
-// AUTH LAYOUT STYLES
-// ===========================================
-
 .container {
   @include flex-column;
   align-items: center;
@@ -52,7 +48,6 @@
   text-align: left;
 }
 
-// Animation
 @keyframes fadeInUp {
   from {
     opacity: 0;

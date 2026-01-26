@@ -107,9 +107,9 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
       case 1:
         return mood !== null;
       case 2:
-        return true; // Feelings are optional
+        return true;
       case 3:
-        return true; // Reflection is optional
+        return true;
       case 4:
         return sleepHours !== null;
       default:
@@ -122,7 +122,6 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
   return (
     <div className={styles.overlay} onClick={handleClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
         <div className={styles.header}>
           <h2 className={styles.title}>Log your mood</h2>
           <button className={styles.closeButton} onClick={handleClose} aria-label="Close">
@@ -130,7 +129,6 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
           </button>
         </div>
 
-        {/* Progress bar */}
         <div className={styles.progressBar}>
           <div 
             className={styles.progressFill} 
@@ -138,7 +136,6 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
           />
         </div>
 
-        {/* Step content */}
         <div className={styles.content}>
           {step === 1 && (
             <StepMood 
@@ -173,7 +170,6 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
           {error && <p className={styles.error}>{error}</p>}
         </div>
 
-        {/* Footer */}
         <div className={styles.footer}>
           {step > 1 && (
             <button 
@@ -208,7 +204,6 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
   );
 }
 
-// Step 1: Mood Selection
 interface StepMoodProps {
   selectedMood: MoodLevel | null;
   onSelect: (mood: MoodLevel) => void;
@@ -245,7 +240,6 @@ function StepMood({ selectedMood, onSelect }: StepMoodProps) {
   );
 }
 
-// Step 2: Feelings Selection
 interface StepFeelingsProps {
   selectedFeelings: string[];
   onToggle: (feeling: string) => void;
@@ -279,7 +273,6 @@ function StepFeelings({ selectedFeelings, onToggle, maxFeelings }: StepFeelingsP
   );
 }
 
-// Step 3: Reflection
 interface StepReflectionProps {
   reflection: string;
   onChange: (value: string) => void;
@@ -311,7 +304,6 @@ function StepReflection({ reflection, onChange, maxLength }: StepReflectionProps
   );
 }
 
-// Step 4: Sleep Selection
 interface StepSleepProps {
   selectedSleep: number | null;
   onSelect: (hours: number) => void;

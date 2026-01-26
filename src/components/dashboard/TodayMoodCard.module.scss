@@ -15,7 +15,6 @@
   }
 }
 
-// Left section - Mood display
 .moodSection {
   @include flex-column;
   align-items: flex-start;
@@ -60,7 +59,6 @@
   line-height: $line-height-relaxed;
 }
 
-// Right section - Details
 .detailsSection {
   @include flex-column;
   gap: $spacing-5;
@@ -99,7 +97,6 @@
   line-height: $line-height-relaxed;
 }
 
-// Feelings tags
 .feelings {
   display: flex;
   flex-wrap: wrap;

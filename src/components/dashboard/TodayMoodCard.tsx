@@ -16,12 +16,10 @@ interface TodayMoodCardProps {
 }
 
 export function TodayMoodCard({ entry }: TodayMoodCardProps) {
-  // Memoize the quote so it doesn't change on re-renders
   const quote = useMemo(() => getMoodQuote(entry.mood), [entry.mood]);
 
   return (
     <article className={styles.card}>
-      {/* Left section - Mood display */}
       <div className={styles.moodSection}>
         <span className={styles.moodPrefix}>I'm feeling</span>
         <h3 className={styles.moodLabel}>{getMoodLabel(entry.mood)}</h3>
@@ -38,9 +36,7 @@ export function TodayMoodCard({ entry }: TodayMoodCardProps) {
         </div>
       </div>
 
-      {/* Right section - Details */}
       <div className={styles.detailsSection}>
-        {/* Sleep */}
         <div className={styles.detailBlock}>
           <div className={styles.detailHeader}>
             <img src={iconSleep} alt="" className={styles.detailIcon} />
@@ -49,7 +45,6 @@ export function TodayMoodCard({ entry }: TodayMoodCardProps) {
           <p className={styles.detailValue}>{formatSleepHours(entry.sleep_hours)}</p>
         </div>
 
-        {/* Reflection */}
         {entry.reflection && (
           <div className={styles.detailBlock}>
             <div className={styles.detailHeader}>
@@ -60,7 +55,6 @@ export function TodayMoodCard({ entry }: TodayMoodCardProps) {
           </div>
         )}
 
-        {/* Feelings */}
         {entry.feelings.length > 0 && (
           <div className={styles.feelings}>
             {entry.feelings.map((feeling) => (

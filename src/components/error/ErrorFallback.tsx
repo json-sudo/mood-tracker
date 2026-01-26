@@ -1,17 +1,10 @@
 import styles from './ErrorFallback.module.scss';
 
-// ===========================================
-// ERROR FALLBACK - Display when errors occur
-// ===========================================
-
 export interface ErrorFallbackProps {
   error: Error;
   resetError?: () => void;
-  /** 'page' for full-page errors, 'section' for component-level (future use) */
   variant?: 'page' | 'section';
-  /** Custom title override */
   title?: string;
-  /** Custom message override */
   message?: string;
 }
 
@@ -47,7 +40,6 @@ export function ErrorFallback({
   return (
     <div className={`${styles.container} ${styles[variant]}`} role="alert">
       <div className={styles.content}>
-        {/* Error Icon */}
         <div className={styles.iconWrapper}>
           <svg 
             className={styles.icon} 
@@ -62,11 +54,9 @@ export function ErrorFallback({
           </svg>
         </div>
 
-        {/* Error Message */}
         <h1 className={styles.title}>{title || defaultTitle}</h1>
         <p className={styles.message}>{message || defaultMessage}</p>
 
-        {/* Error Details (dev mode) */}
         {import.meta.env.DEV && (
           <details className={styles.details}>
             <summary>Error Details</summary>
@@ -77,7 +67,6 @@ export function ErrorFallback({
           </details>
         )}
 
-        {/* Actions */}
         <div className={styles.actions}>
           <button onClick={handleReset} className={styles.primaryButton}>
             {resetError ? 'Try Again' : 'Refresh Page'}

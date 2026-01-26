@@ -9,13 +9,8 @@ import type {
   ApiError,
 } from '../types';
 
-// ===========================================
-// API CLIENT - Mood Tracker
-// ===========================================
-
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-// Create axios instance
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
   headers: {
@@ -23,9 +18,6 @@ const api = axios.create({
   },
 });
 
-// -----------------------------
-// Token Management
-// -----------------------------
 const TOKEN_KEY = 'mood_tracker_tokens';
 
 export function getStoredTokens(): AuthTokens | null {
@@ -47,9 +39,6 @@ export function clearStoredTokens(): void {
   localStorage.removeItem(TOKEN_KEY);
 }
 
-// -----------------------------
-// Request Interceptor - Add Auth Header
-// -----------------------------
 api.interceptors.request.use(
   (config) => {
     const tokens = getStoredTokens();
@@ -63,9 +52,6 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// -----------------------------
-// Response Interceptor - Token Refresh
-// -----------------------------
 let isRefreshing = false;
 let failedQueue: Array<{
   resolve: (value: unknown) => void;
@@ -88,14 +74,12 @@ api.interceptors.response.use(
   async (error: AxiosError<ApiError>) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
     
-    // If 401 and not a refresh request, try to refresh token
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
       !originalRequest.url?.includes('/auth/refresh')
     ) {
       if (isRefreshing) {
-        // Queue this request while refresh is in progress
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
@@ -148,13 +132,6 @@ api.interceptors.response.use(
   }
 );
 
-// ===========================================
-// API METHODS
-// ===========================================
-
-// -----------------------------
-// Auth API
-// -----------------------------
 export const authApi = {
   login: async (email: string, password: string): Promise<AuthTokens> => {
     const response = await api.post<AuthTokens>('/auth/login', {
@@ -181,9 +158,6 @@ export const authApi = {
   },
 };
 
-// -----------------------------
-// User API
-// -----------------------------
 export const userApi = {
   getMe: async (): Promise<User> => {
     const response = await api.get<User>('/users/me');
@@ -196,9 +170,6 @@ export const userApi = {
   },
 };
 
-// -----------------------------
-// Entries API
-// -----------------------------
 export const entriesApi = {
   getEntries: async (limit: number = 11): Promise<MoodEntry[]> => {
     const response = await api.get<MoodEntry[]>('/entries', { params: { limit } });
@@ -228,7 +199,6 @@ export const entriesApi = {
       const response = await api.get<MoodAverages>('/entries/averages');
       return response.data;
     } catch (error) {
-      // May fail if not enough entries
       if (axios.isAxiosError(error) && error.response?.status === 404) {
         return null;
       }
@@ -237,9 +207,6 @@ export const entriesApi = {
   },
 };
 
-// -----------------------------
-// Upload API
-// -----------------------------
 interface UploadResponse {
   url: string;
   success: boolean;

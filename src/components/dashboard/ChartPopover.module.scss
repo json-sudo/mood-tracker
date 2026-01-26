@@ -20,7 +20,6 @@
   margin-top: -$spacing-4;
   animation: popoverIn 0.15s ease-out;
 
-  // Arrow pointing down
   &::after {
     content: '';
     position: absolute;

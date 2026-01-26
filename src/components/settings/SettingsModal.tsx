@@ -21,7 +21,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Reset form when modal opens
   useEffect(() => {
     if (isOpen) {
       setName(user?.name || '');
@@ -39,13 +38,11 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     if (!ALLOWED_TYPES.includes(file.type)) {
       setError('Please select a PNG, JPG, or WebP image.');
       return;
     }
 
-    // Validate file size
     if (file.size > MAX_FILE_SIZE) {
       setError('Image must be less than 2MB.');
       return;
@@ -55,7 +52,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     setIsUploading(true);
 
     try {
-      // Upload the file
       const url = await uploadApi.uploadAvatar(file);
       setAvatarUrl(url);
     } catch (err) {
@@ -63,7 +59,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       setError('Failed to upload image. Please try again.');
     } finally {
       setIsUploading(false);
-      // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -86,20 +81,16 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     setError(null);
 
     try {
-      // Build update payload
       const updateData: { name: string; avatar_url?: string } = {
         name: name.trim(),
       };
 
-      // Include avatar_url if it changed
       if (avatarUrl !== user?.avatar_url) {
         updateData.avatar_url = avatarUrl || undefined;
       }
 
-      // Call API and get updated user data
       const updatedUser = await userApi.updateMe(updateData);
 
-      // Update local auth state with response from API
       updateUser(updatedUser);
 
       handleClose();
@@ -118,7 +109,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   return (
     <div className={styles.overlay} onClick={handleClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
         <div className={styles.header}>
           <div>
             <h2 className={styles.title}>Update your profile</h2>
@@ -130,7 +120,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Name field */}
           <div className={styles.field}>
             <label htmlFor="name" className={styles.label}>Name</label>
             <input
@@ -143,7 +132,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             />
           </div>
 
-          {/* Avatar field */}
           <div className={styles.avatarField}>
             <img 
               src={displayAvatar} 
@@ -171,10 +159,8 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             </div>
           </div>
 
-          {/* Error message */}
           {error && <p className={styles.error}>{error}</p>}
 
-          {/* Submit button */}
           <button 
             type="submit" 
             className={styles.submitButton}
