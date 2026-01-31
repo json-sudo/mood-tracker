@@ -10,6 +10,7 @@ interface MoodLoggerModalProps {
   onSuccess: () => void;
 }
 
+const TOTAL_STEPS = 4;
 type Step = 1 | 2 | 3 | 4;
 
 const MOOD_OPTIONS: MoodLevel[] = [2, 1, 0, -1, -2];
@@ -129,11 +130,14 @@ export function MoodLoggerModal({ isOpen, onClose, onSuccess }: MoodLoggerModalP
           </button>
         </div>
 
-        <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill} 
-            style={{ width: `${(step / 4) * 100}%` }}
-          />
+        <div className={styles.progressPills}>
+          {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((stepNumber) => (
+            <div
+              key={stepNumber}
+              className={`${styles.progressPill} ${stepNumber < step ? styles.completed : ''} ${stepNumber === step ? styles.active : ''}`}
+              aria-label={`Step ${stepNumber} of ${TOTAL_STEPS}${stepNumber < step ? ' (completed)' : stepNumber === step ? ' (current)' : ''}`}
+            />
+          ))}
         </div>
 
         <div className={styles.content}>

@@ -6,12 +6,12 @@
   border-radius: $radius-xl;
   padding: $spacing-5 $spacing-4 0;
 
+  &:last-of-type {
+    padding-bottom: $spacing-6;
+  }
+
   @include media-breakpoint-up(md) {
     padding: $spacing-6 $spacing-6 0;
-
-    &:last-of-type {
-      padding-bottom: $spacing-6;
-    }
   }
 }
 
