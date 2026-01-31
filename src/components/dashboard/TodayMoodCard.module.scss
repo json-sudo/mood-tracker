@@ -10,7 +10,7 @@
   padding: $spacing-6;
   box-shadow: $shadow-sm;
 
-  @include md {
+  @include media-breakpoint-up(md) {
     grid-template-columns: 1fr 1fr;
   }
 }

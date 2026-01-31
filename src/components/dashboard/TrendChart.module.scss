@@ -2,6 +2,7 @@
 @use '../../styles/mixins' as *;
 
 .card {
+  height: 100%;
   background: $color-bg-card;
   border-radius: $radius-xl;
   padding: $spacing-6;
@@ -46,7 +47,6 @@
 
 .emptyState {
   @include flex-center;
-  min-height: 280px;
   text-align: center;
 }
 
@@ -73,7 +73,7 @@
   pointer-events: none;
 }
 
-@include md {
+@include media-breakpoint-up(md) {
   .header {
     flex-wrap: nowrap;
   }

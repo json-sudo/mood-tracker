@@ -68,21 +68,6 @@ export function TrendChart({ entries }: TrendChartProps) {
     setSelectedEntry(null);
   };
 
-  if (entries.length === 0) {
-    return (
-      <article className={styles.card}>
-        <header className={styles.header}>
-          <h2 className={styles.title}>Mood and sleep trends</h2>
-        </header>
-        <div className={styles.emptyState}>
-          <p className={styles.emptyText}>
-            No data yet. Start tracking your mood to see trends!
-          </p>
-        </div>
-      </article>
-    );
-  }
-
   const CustomBar = (props: any) => {
     const { x, y, width, height, payload } = props;
     const iconSrc = getMoodIcon(payload.moodLevel);
@@ -114,6 +99,63 @@ export function TrendChart({ entries }: TrendChartProps) {
       </g>
     );
   };
+
+  if (entries.length === 0) {
+    return (
+      <article className={styles.card}>
+        <header className={styles.header}>
+          <h2 className={styles.title}>Mood and sleep trends</h2>
+        </header>
+        <div className={styles.emptyState}>
+          <p className={styles.emptyText}>
+            No data yet. Start tracking your mood to see trends!
+          </p>
+        </div>
+        <div className={styles.chartContainer}>
+        <ResponsiveContainer width="100%" height={280}>
+          <BarChart
+            data={chartData}
+            margin={{ top: 40, right: 10, left: 10, bottom: 5 }}
+            barCategoryGap="15%"
+          >
+            <XAxis
+              dataKey="shortDate"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: '#57577B', fontSize: 12 }}
+            />
+            <YAxis
+              domain={[0, 6]}
+              ticks={[1, 2, 3, 4, 5]}
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: '#9393B7', fontSize: 11 }}
+              width={80}
+              tickFormatter={(value) => Y_AXIS_LABELS[value] || ''}
+            />
+            <Bar
+              dataKey="mood"
+              shape={<CustomBar />}
+              onClick={(data, _index, event) => {
+                const chartPoint = data.payload as ChartDataPoint;
+                handleBarClick(chartPoint, event as unknown as React.MouseEvent);
+              }}
+            >
+              {chartData.map((_, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  cursor="pointer"
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      </article>
+    );
+  }
+
+  
 
   return (
     <article className={styles.card} ref={chartRef}>

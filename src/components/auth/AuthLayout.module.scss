@@ -18,7 +18,7 @@
   
   animation: fadeInUp 0.5s ease;
 
-  @media (min-width: ($breakpoint-sm + 1px)) {
+  @include media-breakpoint-up(md) {
     padding: $spacing-10 $spacing-8;
   }
 }
