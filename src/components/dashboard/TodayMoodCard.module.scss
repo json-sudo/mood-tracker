@@ -4,30 +4,35 @@
 .card {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $spacing-6;
-  background: $color-bg-card;
-  border-radius: $radius-xl;
-  padding: $spacing-6;
-  box-shadow: $shadow-sm;
+  gap: $spacing-5 $spacing-8;
+  // padding: $spacing-6;
 
   @include media-breakpoint-up(md) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
 }
 
 .moodSection {
   @include flex-column;
   align-items: flex-start;
+  padding: $spacing-5;
+  @include mood-cards;
+  position: relative;
+  overflow: hidden;
+
+  @include media-breakpoint-up(md) {  
+    padding: $spacing-8;
+  }
 }
 
 .moodPrefix {
-  font-size: $font-size-sm;
+  font-size: 36px;
+  font-weight: $font-weight-medium;
   color: $color-gray-400;
-  margin-bottom: $spacing-1;
 }
 
 .moodLabel {
-  font-size: $font-size-2xl;
+  font-size: 40px;
   font-weight: $font-weight-bold;
   color: $color-gray-900;
   margin-bottom: $spacing-4;
@@ -36,12 +41,19 @@
 .moodIcon {
   width: 120px;
   height: 120px;
-  margin-bottom: $spacing-4;
+  position: absolute;
+  object-fit: contain;
+  transform: scale(2.13);
+  bottom: $spacing-10;
+  right: 12%;
+
 }
 
 .quoteSection {
+  margin-top: auto;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   gap: $spacing-2;
 }
 
@@ -53,7 +65,7 @@
 }
 
 .quoteText {
-  font-size: $font-size-sm;
+  font-size: $font-size-base;
   color: $color-gray-400;
   font-style: italic;
   line-height: $line-height-relaxed;
@@ -64,9 +76,22 @@
   gap: $spacing-5;
 }
 
-.detailBlock {
+.detailBlock, .detailBlock__reflection {
   @include flex-column;
   gap: $spacing-2;
+}
+
+.detailBlock__sleep {
+  padding: $spacing-5;
+  gap: $spacing-4;
+  @include mood-cards;
+}
+
+.detailBlock__reflection {
+  height: 100%;
+  padding: $spacing-5;
+  @include mood-cards;
+
 }
 
 .detailHeader {
@@ -81,12 +106,12 @@
 }
 
 .detailLabel {
-  font-size: $font-size-sm;
+  font-size: $font-size-lg;
   color: $color-gray-400;
 }
 
 .detailValue {
-  font-size: $font-size-xl;
+  font-size: $font-size-3xl;
   font-weight: $font-weight-semibold;
   color: $color-gray-900;
 }
@@ -98,19 +123,19 @@
 }
 
 .feelings {
+  
   display: flex;
   flex-wrap: wrap;
-  gap: $spacing-2;
+  gap: $spacing-3;
   margin-top: auto;
 }
 
 .feelingTag {
+  height: fit-content;
   display: inline-flex;
-  align-items: center;
-  padding: $spacing-1 $spacing-3;
-  background: $color-primary-light;
-  color: $color-primary;
-  border-radius: $radius-full;
-  font-size: $font-size-xs;
+  align-self: flex-end;
+  color: $color-gray-600;
+  font-size: $font-size-lg;
   font-weight: $font-weight-medium;
+  font-style: italic;
 }

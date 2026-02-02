@@ -119,7 +119,7 @@
   align-items: center;
   padding: $spacing-3 $spacing-4;
   border: 2px solid $color-gray-200;
-  border-radius: $radius-lg;
+  border-radius: $radius-md;
   cursor: pointer;
   transition: border-color $transition-fast, background $transition-fast;
 
@@ -169,7 +169,7 @@
 
   &:hover:not(:disabled) {
     border-color: $color-primary;
-    color: $color-primary;
+    // color: $color-gray-600;
   }
 
   &.selected {
@@ -188,7 +188,7 @@
   width: 100%;
   padding: $spacing-3 $spacing-4;
   border: 1px solid $color-gray-200;
-  border-radius: $radius-lg;
+  border-radius: $radius-md;
   font-family: $font-family-base;
   font-size: $font-size-sm;
   color: $color-gray-900;
@@ -222,7 +222,7 @@
   align-items: center;
   padding: $spacing-3 $spacing-4;
   border: 2px solid $color-gray-200;
-  border-radius: $radius-lg;
+  border-radius: $radius-md;
   cursor: pointer;
   transition: border-color $transition-fast, background $transition-fast;
 
@@ -258,7 +258,7 @@
 .backButton {
   padding: $spacing-3 $spacing-5;
   border: 1px solid $color-gray-200;
-  border-radius: $radius-lg;
+  border-radius: $radius-md;
   background: $color-white;
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
@@ -282,7 +282,7 @@
   flex: 1;
   padding: $spacing-3 $spacing-5;
   border: none;
-  border-radius: $radius-lg;
+  border-radius: $radius-md;
   background: $color-primary;
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;

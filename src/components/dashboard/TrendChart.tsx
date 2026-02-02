@@ -112,7 +112,7 @@ export function TrendChart({ entries }: TrendChartProps) {
           </p>
         </div>
         <div className={styles.chartContainer}>
-        <ResponsiveContainer width="100%" height={280}>
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
             margin={{ top: 40, right: 10, left: 10, bottom: 5 }}
@@ -175,7 +175,7 @@ export function TrendChart({ entries }: TrendChartProps) {
       </header>
 
       <div className={styles.chartContainer}>
-        <ResponsiveContainer width="100%" height={280}>
+        <ResponsiveContainer width="100%" minHeight={380}>
           <BarChart
             data={chartData}
             margin={{ top: 40, right: 10, left: 10, bottom: 5 }}

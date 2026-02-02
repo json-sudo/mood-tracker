@@ -32,12 +32,12 @@ export function TodayMoodCard({ entry }: TodayMoodCardProps) {
         
         <div className={styles.quoteSection}>
           <img src={iconQuote} alt="" className={styles.quoteIcon} />
-          <p className={styles.quoteText}>{quote}</p>
+          <p className={styles.quoteText}>"{quote}"</p>
         </div>
       </div>
 
       <div className={styles.detailsSection}>
-        <div className={styles.detailBlock}>
+        <div className={styles.detailBlock + ' ' + styles.detailBlock__sleep}>
           <div className={styles.detailHeader}>
             <img src={iconSleep} alt="" className={styles.detailIcon} />
             <span className={styles.detailLabel}>Sleep</span>
@@ -45,25 +45,25 @@ export function TodayMoodCard({ entry }: TodayMoodCardProps) {
           <p className={styles.detailValue}>{formatSleepHours(entry.sleep_hours)}</p>
         </div>
 
-        {entry.reflection && (
+        <div className={styles.detailBlock__reflection}>
           <div className={styles.detailBlock}>
             <div className={styles.detailHeader}>
               <img src={iconReflection} alt="" className={styles.detailIcon} />
               <span className={styles.detailLabel}>Reflection of the day</span>
             </div>
-            <p className={styles.reflectionText}>{entry.reflection}</p>
+            {entry.reflection && (<p className={styles.reflectionText}>{entry.reflection}</p>)}
           </div>
-        )}
 
-        {entry.feelings.length > 0 && (
-          <div className={styles.feelings}>
-            {entry.feelings.map((feeling) => (
-              <span key={feeling} className={styles.feelingTag}>
-                #{feeling}
-              </span>
-            ))}
-          </div>
-        )}
+          {entry.feelings.length > 0 && (
+            <div className={styles.feelings}>
+              {entry.feelings.map((feeling) => (
+                <span key={feeling} className={styles.feelingTag}>
+                  #{feeling}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );

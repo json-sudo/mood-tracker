@@ -159,6 +159,12 @@ $breakpoints: (
   }
 }
 
+@mixin mood-cards {
+  background: $color-bg-card;
+  box-shadow: $shadow-sm;
+  border-radius: $radius-xl;
+}
+
 @mixin custom-scrollbar {
   &::-webkit-scrollbar {
     width: 8px;
@@ -182,4 +188,8 @@ $breakpoints: (
 
 @mixin mood-background($mood) {
   background: map-get($mood-colors, $mood);
+}
+
+@mixin tex-preset-1 {
+  font-size: $font-size-base;
 }
